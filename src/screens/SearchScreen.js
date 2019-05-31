@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Image, View, Button, StyleSheet, TouchableOpacity, Text, TextInput} from 'react-native';
-
+import {Image, View, Button, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground} from 'react-native';
+import {SearchBar} from 'react-native-elements';
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
@@ -15,20 +15,33 @@ const styles = StyleSheet.create ({
     words: {
         textAlign: 'center',
         color: 'red',
-        margin: 10,
+        margin: 100,
+        fontSize: 100,
     },
 });
 
 class SearchScreen extends Component<Props>{
+    state = {
+        search: ''
+    };
+
+    updateSearch = search => {
+        this.setState({ search });
+    };
+
     render(){
+        const {search} = this.state;
         return (
-            <View style = {styles.container}>
-                <Image 
-                    style = {styles.image}
-                    resizeMode = 'center'
-                    source = {require('../assets/images/TimeTreeSearch.png')}
+            <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')} 
+            imageStyle = {{resizeMode: 'contain'}}
+            style = {{width: '100%', height: '100%'}}
+            >
+                <SearchBar
+                    placeholder = "Taxon A"
+                    onChangeText = {this.updateSearch}
+                    value = {search}
                 />
-            </View>
+            </ImageBackground>
         );
     }
 }
