@@ -94,7 +94,7 @@ class SearchScreen extends Component<Props>{
         });
     }
     searchHit = (taxonA,taxonB) => {
-        Alert.alert('Taxon A: '+ taxonA + '\nTaxon B: ' + taxonB)
+        Alert.alert('Taxon A: '+ this.state.taxonA + '\nTaxon B: ' + this.state.taxonB)
     }
     _onPressButton() {
         Alert.alert('You tapped the button!')
@@ -113,7 +113,6 @@ class SearchScreen extends Component<Props>{
                         onChangeText = {this.handleTaxonA}
                         placeholderTextColor = 'grey'
                         placeholder = 'Taxon A...'
-
                     />
                 </View>
                 <View style = {styles.boxB}>
