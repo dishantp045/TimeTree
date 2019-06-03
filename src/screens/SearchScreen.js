@@ -60,14 +60,18 @@ const styles = StyleSheet.create ({
         borderRadius: 10,
     },
     searchButton: {
-        height: 40,
-        width: 40,
+        height: 30,
+        width: 80,
         backgroundColor: '#d3d3d3',
         flex: 1,
         position: 'absolute',
-        right: 75,
-        top: 300,
+        right: 25,
+        top: 280,
         borderRadius: 10,
+    },
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
     },
 });
 
@@ -81,6 +85,11 @@ class SearchScreen extends Component<Props>{
                 <View style = {styles.panel}/>
                 <View style = {styles.boxA}/>
                 <View style = {styles.boxB}/>
+                <TouchableOpacity
+                style = {styles.searchButton}
+                >
+                    <Text style = {styles.text}>Search</Text>
+                </TouchableOpacity>
                 <TouchableOpacity 
                 style = {styles.small}
                 hitSlop = {{top: -750, bottom: 15, right: 50, left: -275}}
