@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
+import TimelineScreen from './src/screens/TimelineScreen';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -21,13 +22,13 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <SearchScreen />
+        <TimelineScreen />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
     justifyContent: 'center',

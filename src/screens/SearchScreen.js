@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground, Button, Alert} from 'react-native';
+import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground, Button, Alert, Keyboard} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 const styles = StyleSheet.create ({
