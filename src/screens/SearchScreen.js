@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground, Button, Alert} from 'react-native';
 import {SearchBar} from 'react-native-elements';
+import StartScreen from './StartScreen'
 const styles = StyleSheet.create ({
     container: { // just for main screen if need be
         flex: 1,
@@ -76,6 +77,10 @@ const styles = StyleSheet.create ({
 });
 
 class SearchScreen extends Component<Props>{
+     _onPressButton() {
+       Alert.alert('You tapped the button!')
+    }
+
     render(){
         return (
             <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')} 
@@ -87,12 +92,14 @@ class SearchScreen extends Component<Props>{
                 <View style = {styles.boxB}/>
                 <TouchableOpacity
                 style = {styles.searchButton}
+                onPress= {this._onPressButton}
                 >
                     <Text style = {styles.text}>Search</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                 style = {styles.small}
                 hitSlop = {{top: -750, bottom: 15, right: 50, left: -275}}
+                onPress = {this._onPressButton}
                 >
                     <Image 
                     style = {styles.info}
