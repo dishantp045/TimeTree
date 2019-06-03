@@ -20,7 +20,7 @@ const styles = StyleSheet.create ({
     },
     small: { // random too scared to get rid of
         alignItems: 'baseline',
-        flex:1,
+        flex: 3,
     },
     info: { // for info button
         height: 50,
@@ -81,8 +81,9 @@ class SearchScreen extends Component<Props>{
                 <View style = {styles.panel}/>
                 <View style = {styles.boxA}/>
                 <View style = {styles.boxB}/>
-                <TouchableOpacity
-                    style = {styles.small}
+                <TouchableOpacity 
+                style = {styles.small}
+                hitSlop = {{top: -750, bottom: 15, right: 50, left: -275}}
                 >
                     <Image 
                     style = {styles.info}
