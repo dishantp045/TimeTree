@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground, Button, Alert, Keyboard} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {Header} from 'react-native-elements';
 const styles = StyleSheet.create ({
     container: { // just for main screen if need be
         flex: 1,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create ({
 });
 
 class SearchScreen extends Component<Props>{
-    /* Functions for the keyboard
+    /* Functions for the keyboard 
     componentDidMount() {
         this.keyboardDidShowListener = Keyboard.addListener(
             'keyboardDidShow',
@@ -102,7 +103,7 @@ class SearchScreen extends Component<Props>{
     _keyboardDidHide() {
         alert('Keyboard Hidden');
     }
-     End of KEyboard Functions */
+     End of Keyboard Functions */
     /* Functions for the input of the Taxa*/
     constructor(Props){
         super(Props);
@@ -130,7 +131,12 @@ class SearchScreen extends Component<Props>{
             <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')} 
             imageStyle = {{resizeMode: 'contain'}}
             style = {{width: '100%', height: '100%'}}
+            onPress = {Keyboard.dismiss}
             >
+                <Header
+                    centerComponent = {{text: 'TimeTree', style: {color: 'black', fontSize: 35}}}
+                    backgroundColor = 'dimgrey'
+                />
                 <View style = {styles.panel}/>
                 <View style = {styles.boxA}>
                     <TextInput
@@ -139,7 +145,6 @@ class SearchScreen extends Component<Props>{
                         onChangeText = {this.handleTaxonA}
                         placeholderTextColor = 'grey'
                         placeholder = 'Taxon A...'
-                        
                     />
                 </View>
                 <View style = {styles.boxB}>
