@@ -139,7 +139,7 @@ class SearchScreen extends Component<Props>{
                         onChangeText = {this.handleTaxonA}
                         placeholderTextColor = 'grey'
                         placeholder = 'Taxon A...'
-                        autoFocus = {true}
+                        
                     />
                 </View>
                 <View style = {styles.boxB}>
