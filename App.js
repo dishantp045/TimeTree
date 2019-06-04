@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import SearchScreen from './src/screens/SearchScreen';
 import TimelineScreen from './src/screens/TimelineScreen';
+import SummaryScreen from './src/screens/SummaryScreen';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -22,7 +23,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <TimelineScreen />
+        <SearchScreen />
       </View>
     );
   }

@@ -79,6 +79,31 @@ const styles = StyleSheet.create ({
 });
 
 class SearchScreen extends Component<Props>{
+    /* Functions for the keyboard
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            this._keyboardDidShow,
+        );
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
+    }
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidShow() {
+        alert('Keyboard Shown');
+    }
+
+    _keyboardDidHide() {
+        alert('Keyboard Hidden');
+    }
+     End of KEyboard Functions */
+    /* Functions for the input of the Taxa*/
     constructor(Props){
         super(Props);
         this.state = {taxonA : "", taxonB : ""};
@@ -93,12 +118,13 @@ class SearchScreen extends Component<Props>{
             taxonB : text, 
         });
     }
-    searchHit = (taxonA,taxonB) => {
+    searchHit = (taxonA,taxonB) => { // for debugging
         Alert.alert('Taxon A: '+ this.state.taxonA + '\nTaxon B: ' + this.state.taxonB)
     }
-    _onPressButton() {
+    _onPressButton() { // for debugging
         Alert.alert('You tapped the button!')
     }
+    /* End of Input Functions */
     render(){
         return (
             <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')} 
@@ -113,6 +139,7 @@ class SearchScreen extends Component<Props>{
                         onChangeText = {this.handleTaxonA}
                         placeholderTextColor = 'grey'
                         placeholder = 'Taxon A...'
+                        autoFocus = {true}
                     />
                 </View>
                 <View style = {styles.boxB}>
