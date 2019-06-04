@@ -12,6 +12,7 @@
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "^1.2.2",
     "react-native-panel": "^1.0.4",
+    "react-native-pulse": "^1.0.7",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.11.0"
   },
