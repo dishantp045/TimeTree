@@ -13,7 +13,7 @@ const styles = StyleSheet.create ({
         height: 450,
         flex: 1,
     },
-    words: { // for any text
+    words: { // for input fields
         margin: 15,
         height: 20,
         borderColor: '#7a42f4',
