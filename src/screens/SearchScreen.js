@@ -3,6 +3,7 @@ import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackgro
 import {SearchBar} from 'react-native-elements';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import {Header} from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 const styles = StyleSheet.create ({
     container: { // just for main screen if need be
         flex: 1,
