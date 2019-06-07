@@ -12,9 +12,9 @@ import {
     Animated,
     Easing
     } from 'react-native';
-import {SearchBar} from 'react-native-elements';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
-import {Header} from 'react-native-elements';
+import LoadingImage from '../components/LoadingImage';
+import * as Animatable from 'react-native-animatable';
+
 // import * as Animatable from 'react-native-animatable';
 
 
@@ -98,9 +98,7 @@ const styles = StyleSheet.create ({
 class SearchScreen extends Component<Props>{
     render(){
         return (
-            <View style = {styles.container}>
-
-            </View>
+            <LoadingImage />
         );    
     }
 }

@@ -1,31 +1,45 @@
-import React, {Component} from 'react-native';
+import React, {Component} from 'react';
 import {
     Image,
     View,
     StyleSheet,
     TouchableOpacity,
-    Text, TextInput,
+    Text, 
+    TextInput,
     ImageBackground,
     Button,
     Alert,
-    Keyboard,
     Animated,
     Easing
     } from 'react-native';
-import * as GSAP from 'gsap';
+import * as Animatable from 'react-native-animatable';
+
+const Background = Animatable.createAnimatableComponent(ImageBackground);
 
 
-
-class LoadingImage extends Components<Props>{
+class LoadingImage extends Component<Props>{
     constructor(props){
         super(props);
-        this.loading = new Animated.Value(0);
         this.state = {ready: false};
     }
-    
+
     render(){
         return (
-
+            <ImageBackground
+                source = {require('../assets/images/TimeTreeSearch.png')}
+                style = {{width: '100%', height: '100%'}}
+                imageStyle = {{resizeMode: 'contain'}}
+            >
+                <Animatable.Image
+                    source = {require('../assets/images/TimeTree_Gray.png')}
+                    animation = 'fadeOut'
+                    iterationCount = 'infinite'
+                    useNativeDriver = {true}
+                    style = {{height: '100%', width: '100%'}}
+                    resizeMode = 'contain'
+                    easing = 'ease-in-out'
+                />
+            </ImageBackground>
         );
     }
 }
