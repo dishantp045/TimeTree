@@ -1,18 +1,33 @@
 import React, {Component} from 'react';
-import {Image, View, StyleSheet, TouchableOpacity, Text, TextInput, ImageBackground, Button, Alert, Keyboard} from 'react-native';
+import {
+    Image,
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text, TextInput,
+    ImageBackground,
+    Button,
+    Alert,
+    Keyboard,
+    Animated,
+    Easing
+    } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import {Header} from 'react-native-elements';
-import * as Animatable from 'react-native-animatable';
+// import * as Animatable from 'react-native-animatable';
+
+
+
 const styles = StyleSheet.create ({
     container: { // just for main screen if need be
         flex: 1,
-        backgroundColor: '#fff0f5'
+        backgroundColor: 'black'
     },
     image: { // for time tree logo 
-        width: 350,
-        height: 450,
         flex: 1,
+        width: 400,
+        height: 400,
     },
     words: { // for input fields
         margin: 15,
@@ -81,101 +96,12 @@ const styles = StyleSheet.create ({
 });
 
 class SearchScreen extends Component<Props>{
-    /* Functions for the keyboard 
-    componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
-            this._keyboardDidShow,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
-    }
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-    }
-
-    _keyboardDidShow() {
-        alert('Keyboard Shown');
-    }
-
-    _keyboardDidHide() {
-        alert('Keyboard Hidden');
-    }
-     End of Keyboard Functions */
-    /* Functions for the input of the Taxa*/
-    constructor(Props){
-        super(Props);
-        this.state = {taxonA : "", taxonB : ""};
-    }
-    handleTaxonA = (text) => {
-        this.setState({ 
-            taxonA : text, 
-        });
-    }
-    handleTaxonB = (text) => {
-        this.setState({ 
-            taxonB : text, 
-        });
-    }
-    searchHit = (taxonA,taxonB) => { // for debugging
-        Alert.alert('Taxon A: '+ this.state.taxonA + '\nTaxon B: ' + this.state.taxonB)
-    }
-    _onPressButton() { // for debugging
-        Alert.alert('You tapped the button!')
-    }
-    /* End of Input Functions */
     render(){
         return (
-            <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')} 
-            imageStyle = {{resizeMode: 'contain'}}
-            style = {{width: '100%', height: '100%'}}
-            onPress = {Keyboard.dismiss}
-            >
-                <Header
-                    centerComponent = {{text: 'TimeTree', style: {color: 'black', fontSize: 35}}}
-                    backgroundColor = 'dimgrey'
-                />
-                <View style = {styles.panel}/>
-                <View style = {styles.boxA}>
-                    <TextInput
-                        style = {styles.words}
-                        autoCapitalize = 'none'
-                        onChangeText = {this.handleTaxonA}
-                        placeholderTextColor = 'grey'
-                        placeholder = 'Taxon A...'
-                    />
-                </View>
-                <View style = {styles.boxB}>
-                    <TextInput 
-                        style = {styles.words}
-                        autoCapitalize = 'none'
-                        onChangeText = {this.handleTaxonB}
-                        placeholderTextColor = 'grey'
-                        placeholder = 'Taxon B...'
-                    />
-                </View>
-                <TouchableOpacity
-                style = {styles.searchButton}
-                onPress= {this.searchHit}
-                >
-                    <Text style = {styles.text}>Search</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                style = {styles.small}
-                hitSlop = {{top: -750, bottom: 15, right: 50, left: -275}}
-                onPress = {this._onPressButton}
-                >
-                    <Image 
-                    style = {styles.info}
-                    resizeMode = 'contain'
-                    source = {require('../assets/images/info2.png')} 
-                    />
-                </TouchableOpacity>
-            </ImageBackground>
-        );
+            <View style = {styles.container}>
+
+            </View>
+        );    
     }
 }
 
