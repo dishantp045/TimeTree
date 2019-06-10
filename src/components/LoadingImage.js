@@ -12,10 +12,7 @@ import {
     Animated,
     Easing
     } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import PopDownPanel from '../components/PopDownPanel';
 
-const Background = Animatable.createAnimatableComponent(ImageBackground);
 
 
 class LoadingImage extends Component<Props>{
@@ -26,21 +23,7 @@ class LoadingImage extends Component<Props>{
 
     render(){
         return (
-            <ImageBackground
-                source = {require('../assets/images/TimeTreeSearch.png')}
-                style = {{width: '100%', height: '100%'}}
-                imageStyle = {{resizeMode: 'contain'}}
-            >
-                <Animatable.Image
-                    source = {require('../assets/images/TimeTree_Gray.png')}
-                    animation = 'fadeOut'
-                    iterationCount = 'infinite'
-                    useNativeDriver = {true}
-                    style = {{height: '100%', width: '100%'}}
-                    resizeMode = 'contain'
-                    easing = 'ease-in-out'
-                />
-            </ImageBackground>
+            
         );
     }
 }

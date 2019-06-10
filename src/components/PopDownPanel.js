@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, Button, TouchableOpacity, Text} from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { View,
+         TextInput,
+         StyleSheet,
+         Button, 
+         TouchableOpacity, 
+         Text, 
+         Animated,
+         Easing 
+        } from 'react-native';
 
 const styles = StyleSheet.create({
     panel: {
@@ -60,9 +67,8 @@ const styles = StyleSheet.create({
 class PopDownPanel extends Component<Props>{
     constructor(props){
         super(props);
-        this.state = {taxonA: '', taxonB: ''}
+        this.state = {taxonA: '', taxonB: '', panResponder}
     }
-
     handleTaxonA = (text) => {
         this.setState({taxonA : text})
     }
@@ -74,33 +80,7 @@ class PopDownPanel extends Component<Props>{
     }
     render(){
         return(
-            <Animatable.View
-                animation = 'fadeOutRight'
-                delay = {5000}
-            >
-                <View style = {styles.panel}/>
-                    <View style = {styles.boxA}>
-                        <TextInput
-                            fontSize = {15}
-                            placeholder = 'Taxon A...'
-                            onChangeText = {this.handleTaxonA}
-                            style = {styles.words}
-                        />
-                    </View>
-                    <View style = {styles.boxB}>
-                        <TextInput
-                            placeholder = 'Taxon B...'
-                            onChangeText = {this.handleTaxonB}
-                            style = {styles.words}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        style = {styles.searchButton}
-                        onPress = {this._onPress}
-                    >
-                        <Text style = {styles.words}>Search</Text>
-                    </TouchableOpacity>
-            </Animatable.View>
+
         );
     }
 }

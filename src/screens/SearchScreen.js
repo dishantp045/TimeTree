@@ -13,7 +13,7 @@ import {
     Easing
     } from 'react-native';
 import LoadingImage from '../components/LoadingImage';
-import * as Animatable from 'react-native-animatable';
+import PopDownPanel from '../components/PopDownPanel';
 
 // import * as Animatable from 'react-native-animatable';
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create ({
 class SearchScreen extends Component<Props>{
     render(){
         return (
-            <LoadingImage />
+           
         );    
     }
 }
