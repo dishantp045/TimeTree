@@ -13,6 +13,7 @@ import {
     Easing
     } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import PopDownPanel from '../components/PopDownPanel';
 
 const Background = Animatable.createAnimatableComponent(ImageBackground);
 
