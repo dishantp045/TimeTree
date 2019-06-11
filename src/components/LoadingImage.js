@@ -20,12 +20,7 @@ class LoadingImage extends Component<Props>{
         super(props);
         this.state = {ready: false};
     }
-
-    render(){
-        return (
-            
-        );
-    }
+    
 }
 
 export default LoadingImage;

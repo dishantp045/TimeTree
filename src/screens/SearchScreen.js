@@ -10,19 +10,17 @@ import {
     Alert,
     Keyboard,
     Animated,
-    Easing
+    Easing,
+    TouchableHighlight,
+    ActivityIndicator,
     } from 'react-native';
-import LoadingImage from '../components/LoadingImage';
-import PopDownPanel from '../components/PopDownPanel';
+import {Header} from 'react-native-elements';
 
 // import * as Animatable from 'react-native-animatable';
 
-
-
 const styles = StyleSheet.create ({
     container: { // just for main screen if need be
-        flex: 1,
-        backgroundColor: 'black'
+        backgroundColor: 'dimgrey'
     },
     image: { // for time tree logo 
         flex: 1,
@@ -47,8 +45,8 @@ const styles = StyleSheet.create ({
         width: 50,
         flex: 1,
         position: 'absolute',
-        left: 300,
-        bottom: 15,
+        left: 315,
+        bottom: -675,
     },
     panel: { // for panel that input stuff will lay on
         height: 200,
@@ -86,7 +84,7 @@ const styles = StyleSheet.create ({
         flex: 1,
         position: 'absolute',
         right: 25,
-        top: 280,
+        top: 190,
         borderRadius: 10,
     },
     text: {
@@ -96,10 +94,73 @@ const styles = StyleSheet.create ({
 });
 
 class SearchScreen extends Component<Props>{
+    constructor(props){
+        super(props);
+        this._onPress = this._onPress.bind(this);
+        this.state = {taxonA: '', taxonB: '', ready: false}
+    }
+    handleTaxonA = (text) => {
+        this.setState({ taxonA: text })
+    }
+    handleTaxonB = (text) => {
+        this.setState({ taxonB: text })
+    }
+    showLoader = () => {this.setState({ ready: true }); };
+    hideLoader = () => {this.setState({ ready: false }); };
+    
+    _onPress = () => {
+        this.showLoader();
+    }
+    _infoPress = () => {
+        alert('pressed');
+    }
     render(){
         return (
-           
-        );    
+            <View style = {styles.container}>
+                <ImageBackground source = {require('../assets/images/TimeTreeSearch.png')}
+                    imageStyle = {{resizeMode: 'contain'}}
+                    style = {{height: '100%', width: '100%'}}
+                >
+                    <Header
+                        centerComponent = {{text: 'TimeTree',style: {color: 'silver', fontSize: 40, textAlign: 'center'}}}
+                        backgroundColor = 'green'
+                    />
+                    <View style = {styles.panel}/>
+                    <View style = {styles.boxA}>
+                        <TextInput
+                            placeholder = 'Taxon A...'
+                            style = {styles.words}
+                            onChangeText = {this.handleTaxonA}
+                        />
+                    </View>
+                    <View style = {styles.boxB}>
+                        <TextInput
+                            placeholder = 'Taxon B...'
+                            style = {styles.words}
+                            onChangeText = {this.handleTaxonB}
+                        />
+                    </View>
+                    <TouchableHighlight
+                        onPress = {this._onPress}
+                    >
+                        <View style = {styles.searchButton}>
+                            <Text style = {styles.text}>Search</Text>
+                        </View>
+                    </TouchableHighlight>
+                    <View style = {{position: 'absolute', top: "35%", right: "15%", left: "25%"}}>
+                        <ActivityIndicator animating={this.state.ready} size = "large" color= 'red' />
+                    </View>
+                    <TouchableHighlight
+                        onPress = {this._infoPress}
+                    >
+                        <Image source = {require('../assets/images/info2.png')}
+                            style = {styles.info}
+                            resizeMode = 'contain'
+                        />
+                    </TouchableHighlight>
+                </ImageBackground>
+            </View>
+        );  
     }
 }
 
