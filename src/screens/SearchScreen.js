@@ -12,7 +12,7 @@ import {
   Keyboard,
   Animated,
   Easing,
-  TouchableWithoutFeedback,
+  TouchableHighlight,
   ActivityIndicator
 } from "react-native";
 import { Header } from "react-native-elements";
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     // for info button
     height: 50,
     width: 50,
-    flex: 1,
+    flex: 2,
     position: "absolute",
     left: 315,
     bottom: -675
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     height: 30,
     width: 80,
     backgroundColor: "#d3d3d3",
-    flex: 1,
+    flex: 3,
     position: "absolute",
     right: 25,
     top: 190,
@@ -106,7 +106,12 @@ class SearchScreen extends Component<Props> {
   constructor(props) {
     super(props);
     this._onPress = this._onPress.bind(this);
-    this.state = { taxonA: "", taxonB: "", ready: false };
+    this.state = {
+      taxonA: "",
+      taxonB: "",
+      ready: false,
+      opacity: new Animated.Value(0)
+    };
   }
   handleTaxonA = text => {
     this.setState({ taxonA: text });
@@ -124,8 +129,20 @@ class SearchScreen extends Component<Props> {
   _onPress = () => {
     this.showLoader();
   };
-  _infoPress = () => {
-    alert("pressed");
+  _infoPressIn = () => {
+    this.state.opacity.setValue(0);
+    Animated.timing(this.state.opacity, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true
+    }).start();
+  };
+  _infoPressOut = () => {
+    Animated.timing(this.state.opacity, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true
+    }).start();
   };
   render() {
     return (
@@ -147,14 +164,14 @@ class SearchScreen extends Component<Props> {
             <TextInput
               placeholder="Taxon A..."
               style={styles.words}
-              onSubmitEditting={this.handleTaxonA}
+              onSubmitEditing={this.handleTaxonA}
             />
           </View>
           <View style={styles.boxB}>
             <TextInput
               placeholder="Taxon B..."
               style={styles.words}
-              onSubmitEditting={this.handleTaxonB}
+              onSubmitEditing={this.handleTaxonB}
             />
           </View>
           <TouchableHighlight
@@ -177,15 +194,41 @@ class SearchScreen extends Component<Props> {
               animating={this.state.ready}
               size="large"
               color="red"
+              style={{ alignItem: "center" }}
             />
           </View>
-          <TouchableHighlight onPress={this._infoPress}>
+          <TouchableHighlight
+            onPressIn={this._infoPressIn}
+            onPressOut={this._infoPressOut}
+          >
             <Image
               source={require("../assets/images/info2.png")}
               style={styles.info}
               resizeMode="contain"
             />
           </TouchableHighlight>
+          <Animated.Image
+            source = {require('../assets/images/iPhoneTimeTreeInfo.png')}
+            style={[
+              {
+                opacity: this.state.opacity,
+                transform: [
+                  {
+                    scale: this.state.opacity.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0.85, 1]
+                    })
+                  }
+                ],
+                height: 350,
+                width: 350,
+                alignSelf: 'center',
+                position: 'absolute',
+                top: 200
+              }
+            ]}
+            resizeMode = 'contain'
+          />
         </ImageBackground>
       </View>
     );
