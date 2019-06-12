@@ -12,7 +12,7 @@ import {
   Keyboard,
   Animated,
   Easing,
-  TouchableHighlight,
+  TouchableWithoutFeedback,
   ActivityIndicator
 } from "react-native";
 import { Header } from "react-native-elements";
