@@ -208,7 +208,7 @@ class SearchScreen extends Component<Props> {
             />
           </TouchableHighlight>
           <Animated.Image
-            source = {require('../assets/images/iPhoneTimeTreeInfo.png')}
+            source={require("../assets/images/iPhoneTimeTreeInfo.png")}
             style={[
               {
                 opacity: this.state.opacity,
@@ -222,12 +222,12 @@ class SearchScreen extends Component<Props> {
                 ],
                 height: 350,
                 width: 350,
-                alignSelf: 'center',
-                position: 'absolute',
+                alignSelf: "center",
+                position: "absolute",
                 top: 200
               }
             ]}
-            resizeMode = 'contain'
+            resizeMode="contain"
           />
         </ImageBackground>
       </View>
