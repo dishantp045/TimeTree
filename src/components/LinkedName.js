@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Linking, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { Linking, Text, StyleSheet, TouchableHighlight, View } from "react-native";
 
 const styles = StyleSheet.create({
   sciName: {
@@ -10,16 +10,19 @@ const styles = StyleSheet.create({
 });
 
 class LinkedName extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.goToUrl = this.goToUrl.bind(this);
+  }
+
   render() {
     const { latinName } = this.props;
-
     return (
-      <TouchableHighlight
-        onPress={this.goToUrl}
-        hitSlop={{ top: 50, left: 50, bottom: 50, right: 50 }}
-      >
-        <Text style={styles.sciName}>{latinName}</Text>
-      </TouchableHighlight>
+      <View>
+        <Text style={styles.sciName} onPress={this.goToUrl}>
+          {latinName}
+        </Text>
+      </View>
     );
   }
 
@@ -27,7 +30,7 @@ class LinkedName extends Component<Props> {
     const { url } = this.props;
     Linking.canOpenURL(url).then(supported => {
       if (supported) {
-        Linking.openURL(url);
+        Linking.openURL(this.props.url);
       } else {
         alert("cannot open this link");
       }
