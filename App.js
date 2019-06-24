@@ -10,7 +10,8 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import SearchScreen from "./src/screens/SearchScreen";
 import LinkedName from "./src/components/LinkedName";
-import LinkedIcon from "./src/components/LinkedIcon";
+import Dots from "./src/components/Dots";
+import ScrollList from './src/components/ScrollList';
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
   android:
@@ -22,8 +23,8 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <LinkedName latinName="google" url="https://google.com" />
+      <View>
+        <SearchScreen/>
       </View>
     );
   }
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF"
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 600,
     textAlign: "center",
     margin: 10
   },

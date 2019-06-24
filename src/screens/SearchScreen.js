@@ -16,7 +16,8 @@ import {
   ActivityIndicator
 } from "react-native";
 import { Header } from "react-native-elements";
-
+import {connect} from "react-redux";
+import {TAXONA, TAXONB, RESPONSE} from "../data/redux-files/actions/action-types";
 // import * as Animatable from 'react-native-animatable';
 
 const styles = StyleSheet.create({
@@ -107,23 +108,22 @@ class SearchScreen extends Component<Props> {
     super(props);
     this._onPress = this._onPress.bind(this);
     this.state = {
-      taxonA: "",
-      taxonB: "",
-      ready: false,
+      isLoading: false,
       opacity: new Animated.Value(0)
     };
   }
   handleTaxonA = text => {
-    this.setState({ taxonA: text });
+    this.props.TAXONA(text);
   };
   handleTaxonB = text => {
-    this.setState({ taxonB: text });
+    this.props.TAXONB(text);
   };
   showLoader = () => {
-    this.setState({ ready: true });
+    this.setState({ isLoading: true });
+    alert("Taxon A: " + this.props.TAXONA.toString() +"\n"+ "Taxon B: "+ this.props.TAXONB.toString());
   };
   hideLoader = () => {
-    this.setState({ ready: false });
+    this.setState({ isLoading: false });
   };
 
   _onPress = () => {
@@ -164,19 +164,19 @@ class SearchScreen extends Component<Props> {
             <TextInput
               placeholder="Taxon A..."
               style={styles.words}
-              onSubmitEditing={this.handleTaxonA}
+              onChangeText={this.handleTaxonA}
             />
           </View>
           <View style={styles.boxB}>
             <TextInput
               placeholder="Taxon B..."
               style={styles.words}
-              onSubmitEditing={this.handleTaxonB}
+              onChangeText={this.handleTaxonB}
             />
           </View>
           <TouchableHighlight
             onPress={this._onPress}
-            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
+            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50}}
           >
             <View style={styles.searchButton}>
               <Text style={styles.text}>Search</Text>
@@ -191,7 +191,7 @@ class SearchScreen extends Component<Props> {
             }}
           >
             <ActivityIndicator
-              animating={this.state.ready}
+              animating={this.state.isLoading}
               size="large"
               color="red"
               style={{ alignItem: "center" }}
@@ -235,4 +235,11 @@ class SearchScreen extends Component<Props> {
   }
 }
 
-export default SearchScreen;
+function mapStateToProps(state) {
+  return {
+    TAXONA: state.TAXONA,
+    TAXONB: state.TAXONB
+  };
+}
+
+export default connect(mapStateToProps, {TAXONA,TAXONB,RESPONSE})(SearchScreen);
