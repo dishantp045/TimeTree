@@ -22,7 +22,8 @@ import {
   fetchingRequest,
   fetchingFailure,
   fetchData
-} from "../data/redux/actions/appActions";
+} from "../data/redux/actions/appActions.js";
+import PropTypes from "prop-types";
 
 // import * as Animatable from 'react-native-animatable';
 
@@ -122,7 +123,7 @@ class SearchScreen extends Component<Props> {
       opacity: new Animated.Value(0)
     };
   }
-  componentDidMount() {
+  _onPress = () => {
     this.props.fetchData(
       V.sprintf(
         "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
@@ -130,29 +131,12 @@ class SearchScreen extends Component<Props> {
         this.state.taxonB
       )
     );
-  }
+  };
   handleTaxonA = text => {
     this.setState({ taxonA: text });
   };
   handleTaxonB = text => {
     this.setState({ taxonB: text });
-  };
-  showLoader = () => {
-    this.setState({ isLoading: true });
-    alert(
-      V.sprintf(
-        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
-        this.state.taxonA,
-        this.state.taxonB
-      )
-    );
-  };
-  hideLoader = () => {
-    this.setState({ isLoading: false });
-  };
-
-  _onPress = () => {
-    this.showLoader();
   };
   _infoPressIn = () => {
     this.state.opacity.setValue(0);
@@ -170,12 +154,6 @@ class SearchScreen extends Component<Props> {
     }).start();
   };
   render() {
-    let queryString = V.sprintf(
-      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
-      this.state.taxonA,
-      this.state.taxonB
-    );
-
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -222,7 +200,7 @@ class SearchScreen extends Component<Props> {
             }}
           >
             <ActivityIndicator
-              animating={this.state.isLoading}
+              animating={this.props.response.isFetching}
               size="large"
               color="red"
               style={{ alignItem: "center" }}
@@ -266,11 +244,16 @@ class SearchScreen extends Component<Props> {
   }
 }
 
+SearchScreen.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  response: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => {
   return { response: state };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  { fetchData }
 )(SearchScreen);
