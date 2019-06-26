@@ -17,7 +17,12 @@ import {
 } from "react-native";
 import { Header } from "react-native-elements";
 import { connect } from "react-redux";
-import { fetchingSuccess, fetchingRequest, fetchingFailure, fetchData } from "../data/redux/actions/appActions";
+import {
+  fetchingSuccess,
+  fetchingRequest,
+  fetchingFailure,
+  fetchData
+} from "../data/redux/actions/appActions";
 
 // import * as Animatable from 'react-native-animatable';
 
@@ -117,7 +122,15 @@ class SearchScreen extends Component<Props> {
       opacity: new Animated.Value(0)
     };
   }
-  componentDidUpdate
+  componentDidMount() {
+    this.props.fetchData(
+      V.sprintf(
+        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+        this.state.taxonA,
+        this.state.taxonB
+      )
+    );
+  }
   handleTaxonA = text => {
     this.setState({ taxonA: text });
   };
@@ -126,11 +139,13 @@ class SearchScreen extends Component<Props> {
   };
   showLoader = () => {
     this.setState({ isLoading: true });
-    alert(V.sprintf(
-      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
-      this.state.taxonA,
-      this.state.taxonB
-    ));
+    alert(
+      V.sprintf(
+        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+        this.state.taxonA,
+        this.state.taxonB
+      )
+    );
   };
   hideLoader = () => {
     this.setState({ isLoading: false });
