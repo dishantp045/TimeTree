@@ -16,9 +16,12 @@ import {
   ActivityIndicator
 } from "react-native";
 import { Header } from "react-native-elements";
-import {connect} from "react-redux";
-import {TAXONA, TAXONB, RESPONSE} from "../data/redux-files/actions/action-types";
+import { connect } from "react-redux";
+import { fetchingSuccess, fetchingRequest, fetchingFailure, fetchData } from "../data/redux/actions/appActions";
+
 // import * as Animatable from 'react-native-animatable';
+
+var V = require("voca");
 
 const styles = StyleSheet.create({
   container: {
@@ -108,19 +111,26 @@ class SearchScreen extends Component<Props> {
     super(props);
     this._onPress = this._onPress.bind(this);
     this.state = {
+      taxonA: "",
+      taxonB: "",
       isLoading: false,
       opacity: new Animated.Value(0)
     };
   }
+  componentDidUpdate
   handleTaxonA = text => {
-    this.props.TAXONA(text);
+    this.setState({ taxonA: text });
   };
   handleTaxonB = text => {
-    this.props.TAXONB(text);
+    this.setState({ taxonB: text });
   };
   showLoader = () => {
     this.setState({ isLoading: true });
-    alert("Taxon A: " + this.props.TAXONA.toString() +"\n"+ "Taxon B: "+ this.props.TAXONB.toString());
+    alert(V.sprintf(
+      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+      this.state.taxonA,
+      this.state.taxonB
+    ));
   };
   hideLoader = () => {
     this.setState({ isLoading: false });
@@ -145,6 +155,12 @@ class SearchScreen extends Component<Props> {
     }).start();
   };
   render() {
+    let queryString = V.sprintf(
+      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+      this.state.taxonA,
+      this.state.taxonB
+    );
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -176,7 +192,7 @@ class SearchScreen extends Component<Props> {
           </View>
           <TouchableHighlight
             onPress={this._onPress}
-            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50}}
+            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
           >
             <View style={styles.searchButton}>
               <Text style={styles.text}>Search</Text>
@@ -235,11 +251,11 @@ class SearchScreen extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    TAXONA: state.TAXONA,
-    TAXONB: state.TAXONB
-  };
-}
+const mapStateToProps = state => {
+  return { response: state };
+};
 
-export default connect(mapStateToProps, {TAXONA,TAXONB,RESPONSE})(SearchScreen);
+export default connect(
+  mapStateToProps,
+  null
+)(SearchScreen);
