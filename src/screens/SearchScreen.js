@@ -16,9 +16,18 @@ import {
   ActivityIndicator
 } from "react-native";
 import { Header } from "react-native-elements";
-import {connect} from "react-redux";
-import {TAXONA, TAXONB, RESPONSE} from "../data/redux-files/actions/action-types";
+import { connect } from "react-redux";
+import {
+  fetchingSuccess,
+  fetchingRequest,
+  fetchingFailure,
+  fetchData
+} from "../data/redux/actions/appActions.js";
+import PropTypes from "prop-types";
+
 // import * as Animatable from 'react-native-animatable';
+
+var V = require("voca");
 
 const styles = StyleSheet.create({
   container: {
@@ -108,26 +117,40 @@ class SearchScreen extends Component<Props> {
     super(props);
     this._onPress = this._onPress.bind(this);
     this.state = {
+      taxonA: "",
+      taxonB: "",
       isLoading: false,
       opacity: new Animated.Value(0)
     };
   }
+  _onPress = () => {
+<<<<<<< HEAD
+    console.log("Begin");
+    fetchData(
+=======
+    this.props.fetchData(
+>>>>>>> 646275a4c6691fbb66747e09ec053adbf9eeef59
+      V.sprintf(
+        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+        this.state.taxonA,
+        this.state.taxonB
+      )
+    );
+<
+    console.log(
+      V.sprintf(
+        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+        this.state.taxonA,
+        this.state.taxonB
+      )
+    );
+    console.log("end");
+  };
   handleTaxonA = text => {
-    this.props.TAXONA(text);
+    this.setState({ taxonA: text });
   };
   handleTaxonB = text => {
-    this.props.TAXONB(text);
-  };
-  showLoader = () => {
-    this.setState({ isLoading: true });
-    alert("Taxon A: " + this.props.TAXONA.toString() +"\n"+ "Taxon B: "+ this.props.TAXONB.toString());
-  };
-  hideLoader = () => {
-    this.setState({ isLoading: false });
-  };
-
-  _onPress = () => {
-    this.showLoader();
+    this.setState({ taxonB: text });
   };
   _infoPressIn = () => {
     this.state.opacity.setValue(0);
@@ -176,7 +199,7 @@ class SearchScreen extends Component<Props> {
           </View>
           <TouchableHighlight
             onPress={this._onPress}
-            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50}}
+            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
           >
             <View style={styles.searchButton}>
               <Text style={styles.text}>Search</Text>
@@ -191,9 +214,9 @@ class SearchScreen extends Component<Props> {
             }}
           >
             <ActivityIndicator
-              animating={this.state.isLoading}
+              animating={this.props.response.isFetching}
               size="large"
-              color="red"
+              color="pink"
               style={{ alignItem: "center" }}
             />
           </View>
@@ -235,11 +258,16 @@ class SearchScreen extends Component<Props> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    TAXONA: state.TAXONA,
-    TAXONB: state.TAXONB
-  };
-}
+SearchScreen.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  response: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, {TAXONA,TAXONB,RESPONSE})(SearchScreen);
+const mapStateToProps = state => {
+  return { response: state };
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchData }
+)(SearchScreen);
