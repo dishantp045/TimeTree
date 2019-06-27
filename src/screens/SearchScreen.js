@@ -124,19 +124,17 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
-<<<<<<< HEAD
+
     console.log("Begin");
     fetchData(
-=======
     this.props.fetchData(
->>>>>>> 646275a4c6691fbb66747e09ec053adbf9eeef59
       V.sprintf(
         "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
         this.state.taxonA,
         this.state.taxonB
       )
-    );
-<
+    ));
+
     console.log(
       V.sprintf(
         "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
