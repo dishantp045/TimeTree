@@ -124,15 +124,19 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
+<<<<<<< HEAD
 
     console.log("Begin");
     fetchData(
+=======
+>>>>>>> 646275a4c6691fbb66747e09ec053adbf9eeef59
     this.props.fetchData(
       V.sprintf(
         "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
         this.state.taxonA,
         this.state.taxonB
       )
+<<<<<<< HEAD
     ));
 
     console.log(
@@ -143,6 +147,9 @@ class SearchScreen extends Component<Props> {
       )
     );
     console.log("end");
+=======
+    );
+>>>>>>> 646275a4c6691fbb66747e09ec053adbf9eeef59
   };
   handleTaxonA = text => {
     this.setState({ taxonA: text });
