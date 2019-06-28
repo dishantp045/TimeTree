@@ -24,11 +24,16 @@ export const fetchData = url => {
   return async dispatch => {
     dispatch(fetchingRequest());
     try {
-      let response = await fetch(url);
-      let json = response.json();
-      dispatch(fetchingSuccess(json));
-    } catch(error){
+      const response = await fetch("https://randomuser.me/api/?results=10");
+      const json = await response.text();
+      if (response.ok) {
+        dispatch(fetchingSuccess(json));
+        console.log(JSON.stringify(json));
+      } else {
+        console.log("fetch did not resolve");
+      }
+    } catch (error) {
       dispatch(fetchingFailure(error));
     }
-  }
+  };
 };

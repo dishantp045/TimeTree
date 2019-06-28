@@ -124,13 +124,9 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
-    this.props.fetchData(
-      V.sprintf(
-        "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
-        this.state.taxonA,
-        this.state.taxonB
-      )
-    );
+    let url = "https://randomuser.me/api/?results=10";
+    fetchData(url);
+    console.log("should have fetched");
   };
   handleTaxonA = text => {
     this.setState({ taxonA: text });
@@ -255,5 +251,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchData }
+  { fetchingFailure, fetchingRequest, fetchingSuccess, fetchData }
 )(SearchScreen);
