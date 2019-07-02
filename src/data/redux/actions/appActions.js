@@ -29,17 +29,15 @@ export const fetchData = url => {
   console.log("Should enter async dispatch");
   return async dispatch => {
     dispatch(fetchingRequest());
-    fetch("https://randomuser.me/api/?results=10")
-      .then(response => {
-        if (response.ok) {
-          const json = response.json();
-          dispatch(fetchingSuccess(json));
-          console.log("JSON", json);
-        }
-      })
-      .catch(error => {
-        dispatch(fetchingFailure(error));
-        console.log("Error", error);
-      });
+    try{
+      let response = await fetch(url);
+      let json = await response.json();
+      dispatch(fetchingSuccess(json));
+      console.log("JSON",json);
+      console.log(JSON.stringify(json, null, 2));
+    }catch(error){
+      console.log("ERROR",error);
+      dispatch(fetchingFailure(error));
+    }
   };
 };

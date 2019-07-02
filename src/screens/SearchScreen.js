@@ -119,13 +119,16 @@ class SearchScreen extends Component<Props> {
     this.state = {
       taxonA: "",
       taxonB: "",
-      isLoading: false,
       opacity: new Animated.Value(0)
     };
   }
   _onPress = () => {
-    const {fetchData} = this.props;
-    let url = "https://randomuser.me/api/?results=10";
+    let url = V.sprintf(
+      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+      this.state.taxonA,
+      this.state.taxonB
+    );
+    const { fetchData } = this.props;
     fetchData(url);
     console.log("should have fetched");
   };
@@ -251,7 +254,7 @@ const mapStateToProps = state => {
 };
 
 const mapStateToDispatch = dispatch => ({
-  fetchData: url => dispatch(fetchData(url)),
+  fetchData: url => dispatch(fetchData(url))
 });
 
 export default connect(
