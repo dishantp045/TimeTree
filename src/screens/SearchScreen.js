@@ -124,6 +124,7 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
+    const {fetchData} = this.props;
     let url = "https://randomuser.me/api/?results=10";
     fetchData(url);
     console.log("should have fetched");
@@ -249,7 +250,11 @@ const mapStateToProps = state => {
   return { response: state };
 };
 
+const mapStateToDispatch = dispatch => ({
+  fetchData: url => dispatch(fetchData(url)),
+});
+
 export default connect(
   mapStateToProps,
-  { fetchingFailure, fetchingRequest, fetchingSuccess, fetchData }
+  mapStateToDispatch
 )(SearchScreen);
