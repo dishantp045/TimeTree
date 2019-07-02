@@ -11,12 +11,10 @@ import { createStore, applyMiddleware } from "redux";
 import appReducer from "./src/data/redux/reducers/appReducer";
 import thunk from "redux-thunk";
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
-const store = createStoreWithMiddleware(appReducer);
+const store = createStore(appReducer, applyMiddleware(thunk));
 console.log("Store", store.getState());
 const AppContainer = () => (
-  <Provider store = {store}>
+  <Provider store={store}>
     <App />
   </Provider>
 );
