@@ -3,11 +3,11 @@ import {
   FETCHING_REQUEST,
   FETCHING_FAILURE
 } from "../actions/types";
-
+import * as data from "./../../../../pickerdata.json" // for debugging issues
 const initialState = {
   isFetching: false,
   errorMessage: "",
-  articles: []
+  articles: data
 };
 
 const appReducer = (state = initialState, action) => {

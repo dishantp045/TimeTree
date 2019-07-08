@@ -8,7 +8,7 @@ import {
   fetchData
 } from "../data/redux/actions/appActions.js";
 import PropTypes from "prop-types";
-import { Header } from "react-native-elements";
+import { Header, List, ListItem } from "react-native-elements";
 import PickerBox from "./PickerBox";
 
 const V = require("voca");
@@ -17,31 +17,39 @@ class PickerList extends Component<Props> {
   constructor(props) {
     super(props);
     this.onPress = this.onPress.bind(this);
-    this.state = { newTaxon: "", correctTaxon: "", dataSource: this.props.response.articles.found_taxon_b };
+    this.setTaxon = this.setTaxon.bind(this);
+    this.state = {
+      newTaxon: "",
+      correctTaxon: "",
+      dataSource: []
+    };
   }
+
   setTaxon = () => {
     if (
-      this.props.response.articles.common_name_a == null ||
-      this.props.response.articles.common_name_b == null
+      this.props.response.articles.common_name_a === null &&
+      this.props.response.articles.common_name_b === null
     ) {
       Alert.alert("Both entries are not specific enough.");
     } else if (this.props.response.articles.common_name_a == null) {
       // if a could not be resolved
       this.setState({
         correctTaxon: this.props.response.articles.common_name_b,
-        newTaxon: this.props.response.articles.common_name_a,
+        newTaxon: this.props.response.articles.taxon_a,
         dataSource: this.props.response.articles.found_taxon_a
       });
+      console.log("Taxon A unresolved");
     } else if (this.props.response.articles.common_name_b == null) {
       // if b could not be resolved
       this.setState({
         correctTaxon: this.props.response.articles.common_name_a,
-        newTaxon: this.props.response.articles.common_name_b,
+        newTaxon: this.props.response.articles.taxon_b,
         dataSource: this.props.response.articles.found_taxon_b
       });
-      console.log("DataSource", dataSource);
+      console.log("Taxon B unresolved");
     }
   };
+
   onPress = newName => {
     this.setState({ newTaxon: newName });
     let url = V.sprintf(
@@ -53,6 +61,12 @@ class PickerList extends Component<Props> {
     fetchData(url);
     console.log("should have fetched");
   };
+
+  componentDidMount = () => {
+    this.setTaxon();
+    console.log("dataSource", this.state.dataSource);
+  };
+
   render() {
     return (
       <View>
@@ -62,12 +76,6 @@ class PickerList extends Component<Props> {
             style: { color: "white", fontSize: 20, textAlign: "center" }
           }}
           backgroundColor="black"
-        />
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={({ item }) => (
-            <PickerBox onPress={this.onPress} newChoice={item.title} />
-          )}
         />
       </View>
     );

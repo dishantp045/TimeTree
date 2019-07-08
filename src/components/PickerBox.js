@@ -30,13 +30,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const PickerBox = () => {
-  const { newChoice } = this.props;
+const PickerBox = title => {
   return (
     <View style={styles.container}>
-      <TouchableHighlight onPress={this.props.onPress}>
-        <Text style={styles.container_text}>{newChoice}</Text>
-      </TouchableHighlight>
+      <Text style={styles.container_text}>{title}</Text>
     </View>
   );
 };

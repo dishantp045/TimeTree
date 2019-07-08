@@ -123,6 +123,10 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
+    if(this.state.taxonA == "" || this.state.taxonB == ""){
+      Alert.alert("One or more fields have been left empty.");
+      return;
+    }
     let url = V.sprintf(
       "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
       this.state.taxonA,
