@@ -11,7 +11,19 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     borderRadius: 5,
-    backgroundColor: "#FFF",
+    backgroundColor: "slategrey",
+    elevation: 2
+  },
+  shadow: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 0,
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 8,
+    marginBottom: 8,
+    borderRadius: 5,
+    backgroundColor: "darkslategray",
     elevation: 2
   },
   title: {
@@ -22,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     marginLeft: 12,
-    justifyContent: "center"
+    color: "#FFF"
   },
   description: {
     fontSize: 11,
@@ -30,12 +42,16 @@ const styles = StyleSheet.create({
   }
 });
 
-const PickerBox = title => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.container_text}>{title}</Text>
-    </View>
-  );
-};
-
+class PickerBox extends Component<props> {
+  render() {
+    const { title } = this.props;
+    return (
+      <View style={styles.shadow}>
+        <View style={styles.container}>
+          <Text style={styles.container_text} onPress = {this.props.onPress}>{title}</Text>
+        </View>
+      </View>
+    );
+  }
+}
 export default PickerBox;

@@ -16,7 +16,7 @@ const V = require("voca");
 class PickerList extends Component<Props> {
   constructor(props) {
     super(props);
-    this.onPress = this.onPress.bind(this);
+    this.onPress = this._onPress.bind(this);
     this.setTaxon = this.setTaxon.bind(this);
     this.state = {
       newTaxon: "",
@@ -26,9 +26,17 @@ class PickerList extends Component<Props> {
   }
 
   setTaxon = () => {
+    const updateTaxonA = Object.keys(this.props.response.articles.found_taxon_a).map(key =>({
+      key,
+      ...this.props.response.articles.found_taxon_a[key]
+    }));
+    const updateTaxonB = Object.keys(this.props.response.articles.found_taxon_b).map(key =>({
+      key,
+      ...this.props.response.articles.found_taxon_b[key]
+    }));
     if (
-      this.props.response.articles.common_name_a === null &&
-      this.props.response.articles.common_name_b === null
+      this.props.response.articles.common_name_a == null &&
+      this.props.response.articles.common_name_b == null
     ) {
       Alert.alert("Both entries are not specific enough.");
     } else if (this.props.response.articles.common_name_a == null) {
@@ -36,21 +44,23 @@ class PickerList extends Component<Props> {
       this.setState({
         correctTaxon: this.props.response.articles.common_name_b,
         newTaxon: this.props.response.articles.taxon_a,
-        dataSource: this.props.response.articles.found_taxon_a
+        dataSource: updateTaxonA
       });
       console.log("Taxon A unresolved");
+      console.log("dataSource", this.state.dataSource);
     } else if (this.props.response.articles.common_name_b == null) {
       // if b could not be resolved
       this.setState({
         correctTaxon: this.props.response.articles.common_name_a,
         newTaxon: this.props.response.articles.taxon_b,
-        dataSource: this.props.response.articles.found_taxon_b
+        dataSource: updateTaxonB
       });
       console.log("Taxon B unresolved");
+      console.log("dataSource", this.state.dataSource);
     }
   };
 
-  onPress = newName => {
+  _onPress = newName => {
     this.setState({ newTaxon: newName });
     let url = V.sprintf(
       "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
@@ -64,18 +74,23 @@ class PickerList extends Component<Props> {
 
   componentDidMount = () => {
     this.setTaxon();
-    console.log("dataSource", this.state.dataSource);
   };
 
   render() {
     return (
-      <View>
+      <View style = {{backgroundColor: "thistle"}}>
         <Header
           centerComponent={{
             text: "By " + this.state.newTaxon + ", did you mean...",
             style: { color: "white", fontSize: 20, textAlign: "center" }
           }}
           backgroundColor="black"
+        />
+        <FlatList
+          data = {this.state.dataSource}
+          renderItem = {({item}) => <PickerBox title = {item.c_syn_name}/>}
+          keyExtractor = {(item, index)=> item.c_syn_name}
+          backgroundColor = "thistle"
         />
       </View>
     );
