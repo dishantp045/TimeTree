@@ -32,7 +32,8 @@ export const fetchData = url => {
     try{
       let response = await fetch(url);
       let json = await response.json();
-      dispatch(fetchingSuccess(json));
+      let dispatchChecker = dispatch(fetchingSuccess(json));
+      console.log("DISPATCH", dispatchChecker);
       console.log("JSON",json);
       console.log(JSON.stringify(json, null, 2));
     }catch(error){
