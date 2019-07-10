@@ -48,7 +48,12 @@ class PickerBox extends Component<props> {
     return (
       <View style={styles.shadow}>
         <View style={styles.container}>
-          <Text style={styles.container_text} onPress = {this.props.onPress}>{title}</Text>
+          <Text
+            style={styles.container_text}
+            onPress={this.props.onPress}
+          >
+            {title}
+          </Text>
         </View>
       </View>
     );

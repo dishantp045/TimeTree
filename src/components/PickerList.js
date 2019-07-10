@@ -59,9 +59,19 @@ class PickerList extends Component<Props> {
       console.log("dataSource", this.state.dataSource);
     }
   };
-
+  updateResults = () => {
+    let url = V.sprintf(
+      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
+      this.state.newTaxon,
+      this.state.correctTaxon
+    );
+    const { fetchData } = this.props;
+    fetchData(url);
+  }
   _onPress = newName => {
-    this.setState({ newTaxon: newName });
+    this.setState({ newTaxon: newName }, this.updateResults);
+   // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
+    /*
     let url = V.sprintf(
       "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
       this.state.newTaxon,
@@ -70,6 +80,7 @@ class PickerList extends Component<Props> {
     const { fetchData } = this.props;
     fetchData(url);
     console.log("should have fetched");
+    */
   };
 
   componentDidMount = () => {
@@ -88,9 +99,10 @@ class PickerList extends Component<Props> {
         />
         <FlatList
           data = {this.state.dataSource}
-          renderItem = {({item}) => <PickerBox title = {item.c_syn_name}/>}
+          renderItem = {({item}) => <PickerBox title = {item.c_syn_name} onPress = {() => this._onPress(item.c_syn_name)} />}
           keyExtractor = {(item, index)=> item.c_syn_name}
           backgroundColor = "thistle"
+          
         />
       </View>
     );
