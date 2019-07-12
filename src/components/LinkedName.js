@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import { Linking, Text, StyleSheet, TouchableHighlight, View } from "react-native";
 
-const styles = StyleSheet.create({
-  sciName: {
-    textAlign: "center",
-    fontWeight: "bold",
-    color: "black"
-  }
-});
+
 
 class LinkedName extends Component<Props> {
   constructor(props) {
@@ -19,7 +13,7 @@ class LinkedName extends Component<Props> {
     const { latinName } = this.props;
     return (
       <View>
-        <Text style={styles.sciName} onPress={this.goToUrl}>
+        <Text style={this.props.style} onPress={this.goToUrl}>
           {latinName}
         </Text>
       </View>
