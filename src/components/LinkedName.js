@@ -3,9 +3,8 @@ import { Linking, Text, StyleSheet, TouchableHighlight, View } from "react-nativ
 
 const styles = StyleSheet.create({
   sciName: {
-    textAlign: "center",
     fontWeight: "bold",
-    color: "black"
+    color: "powderblue"
   }
 });
 

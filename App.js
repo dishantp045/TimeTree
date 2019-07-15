@@ -11,7 +11,7 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import SearchScreen from "./src/screens/SearchScreen";
 import LinkedName from "./src/components/LinkedName";
 import Dots from "./src/components/Dots";
-import ScrollList from './src/components/ScrollList';
+import Summary from "./src/components/Summary";
 import PickerList from "./src/components/PickerList";
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -25,7 +25,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View>
-        <PickerList/>
+        <Summary/>
       </View>
     );
   }

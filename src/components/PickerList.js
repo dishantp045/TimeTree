@@ -71,7 +71,6 @@ class PickerList extends Component<Props> {
   _onPress = newName => {
     this.setState({ newTaxon: newName }, this.updateResults);
    // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
-    /*
     let url = V.sprintf(
       "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
       this.state.newTaxon,
@@ -80,7 +79,7 @@ class PickerList extends Component<Props> {
     const { fetchData } = this.props;
     fetchData(url);
     console.log("should have fetched");
-    */
+    
   };
 
   componentDidMount = () => {
