@@ -4,7 +4,7 @@ import { Linking, Text, StyleSheet, TouchableHighlight, View } from "react-nativ
 const styles = StyleSheet.create({
   sciName: {
     fontWeight: "bold",
-    color: "powderblue"
+    color: "#ff8c00"
   }
 });
 

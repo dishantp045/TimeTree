@@ -92,7 +92,6 @@ class Summary extends Component<Props> {
   componentDidMount = () => {
     console.log("STATE", this.state);
   };
-
   render() {
     return (
       <View style={styles.container}>
@@ -140,7 +139,31 @@ class Summary extends Component<Props> {
             <Text />
             <Text style={styles.text}>median: {this.state.median} MYA</Text>
           </View>
-          
+          <View style={{ position: "absolute", bottom: -35, marginLeft: -5 }}>
+            <FlatList
+              horizontal
+              data={this.state.hitRecords}
+              renderItem={({ item }) => {
+                return (
+                  <ArticleBox
+                    title={item.title}
+                    year={item.year}
+                    time={item.time}
+                    author={item.author}
+                  />
+                );
+              }}
+              itemSeparatorComponent={() => (
+                <View
+                  style={{
+                    backgroundColor: "#ff8c00",
+                    height: 100,
+                    width: 100
+                  }}
+                />
+              )}
+            />
+          </View>
         </ImageBackground>
       </View>
     );
