@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderRadius: 25,
     elevation: 2,
-    marginLeft: 45
+    marginLeft: 45,
+    borderWidth: 4
   },
   layout: {
     textAlign: "center",

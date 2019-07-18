@@ -4,7 +4,8 @@ import * as Animatable from "react-native-animatable";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black"
+    backgroundColor: "dimgrey",
+    flex: 1
   },
   image: {
     position: "absolute",

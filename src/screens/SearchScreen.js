@@ -32,7 +32,7 @@ var V = require("voca");
 const styles = StyleSheet.create({
   container: {
     // just for main screen if need be
-    backgroundColor: "dimgrey"
+    backgroundColor: "dimgrey",
   },
   image: {
     // for time tree logo
@@ -42,13 +42,16 @@ const styles = StyleSheet.create({
   },
   words: {
     // for input fields
+    bottom: 5,
     margin: 15,
     height: 20,
     borderColor: "#7a42f4",
     borderWidth: 0,
     alignSelf: "baseline",
     fontSize: 20,
-    flex: 0
+    flex: 0,
+    textAlign: "center",
+    color: "darkslategrey"
   },
   small: {
     // random too scared to get rid of
@@ -65,46 +68,56 @@ const styles = StyleSheet.create({
     bottom: -675
   },
   panel: {
+    alignSelf: "center",
     // for panel that input stuff will lay on
-    height: 200,
-    width: 400,
-    backgroundColor: "rgba(4,22,66,0.5)",
+    height: 125,
+    width: 365,
+    backgroundColor: "rgba(100,225,450,0.4)",
     flex: 1,
     position: "absolute",
-    top: 200,
-    right: 0
+    top: 225,
+    right: 5,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: 'rgba(450,450,450,0.1)'
   },
   boxA: {
+    alignSelf: "center",
     // for taxon A
     height: 40,
     width: 200,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: "#FFF",
     position: "absolute",
-    top: 235,
+    top: 10,
     right: 150,
-    borderRadius: 10,
-    flex: 1
+    borderRadius: 15,
+    flex: 1,
+    borderWidth: 3
   },
   boxB: {
     // for taxon B
+    alignSelf: "center",
     height: 40,
     width: 200,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: "#FFF",
     position: "absolute",
-    top: 315,
+    top: 75,
     right: 150,
-    borderRadius: 10,
-    flex: 1
+    borderRadius: 15,
+    flex: 1,
+    borderWidth: 3
   },
   searchButton: {
+    alignSelf: "center",
     height: 30,
     width: 80,
     backgroundColor: "#d3d3d3",
     flex: 3,
     position: "absolute",
     right: 25,
-    top: 190,
-    borderRadius: 10
+    top: 45,
+    borderRadius: 15,
+    borderWidth: 3
   },
   text: {
     fontSize: 20,
@@ -123,7 +136,7 @@ class SearchScreen extends Component<Props> {
     };
   }
   _onPress = () => {
-    if(this.state.taxonA == "" || this.state.taxonB == ""){
+    if (this.state.taxonA == "" || this.state.taxonB == "") {
       Alert.alert("One or more fields have been left empty.");
       return;
     }
@@ -168,33 +181,42 @@ class SearchScreen extends Component<Props> {
           <Header
             centerComponent={{
               text: "TimeTree",
-              style: { color: "silver", fontSize: 40, textAlign: "center" }
+              style: {
+                color: "black",
+                fontSize: 45,
+                textAlign: "center",
+                position: "absolute",
+                bottom: -20
+              }
             }}
-            backgroundColor="green"
+            backgroundColor="rgba(230,230,250,0.4)"
           />
-          <View style={styles.panel} />
-          <View style={styles.boxA}>
-            <TextInput
-              placeholder="Taxon A..."
-              style={styles.words}
-              onChangeText={this.handleTaxonA}
-            />
-          </View>
-          <View style={styles.boxB}>
-            <TextInput
-              placeholder="Taxon B..."
-              style={styles.words}
-              onChangeText={this.handleTaxonB}
-            />
-          </View>
-          <TouchableHighlight
-            onPress={this._onPress}
-            hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
-          >
-            <View style={styles.searchButton}>
-              <Text style={styles.text}>Search</Text>
+          <View style={styles.panel}>
+            <View style={styles.boxA}>
+              <TextInput
+                placeholder="Taxon A..."
+                style={styles.words}
+                onChangeText={this.handleTaxonA}
+                placeholderTextColor = "dimgrey"
+              />
             </View>
-          </TouchableHighlight>
+            <View style={styles.boxB}>
+              <TextInput
+                placeholder="Taxon B..."
+                style={styles.words}
+                onChangeText={this.handleTaxonB}
+                placeholderTextColor = "dimgrey"
+              />
+            </View>
+            <TouchableHighlight
+              onPress={this._onPress}
+              hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
+            >
+              <View style={styles.searchButton}>
+                <Text style={styles.text}>Search</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
           <View
             style={{
               position: "absolute",
@@ -206,7 +228,7 @@ class SearchScreen extends Component<Props> {
             <ActivityIndicator
               animating={this.props.response.isFetching}
               size="large"
-              color="pink"
+              color="back"
               style={{ alignItem: "center" }}
             />
           </View>

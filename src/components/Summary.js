@@ -20,7 +20,8 @@ import ArticleBox from "./ArticleBox";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black"
+    backgroundColor: "dimgrey",
+    flex: 1
   },
   posLeft: {
     alignItems: "center",
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flex: 2,
     flexDirection: "column",
-    borderRadius: 25
+    borderRadius: 25,
+    borderWidth: 4
   },
   midPanel: {
     backgroundColor: "rgba(0.0,0.0,0.0,0.9)",
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flex: 2,
     flexDirection: "column",
-    borderRadius: 25
+    borderRadius: 25,
+    borderWidth: 4
   }
 });
 

@@ -12,6 +12,7 @@ import SearchScreen from "./src/screens/SearchScreen";
 import LinkedName from "./src/components/LinkedName";
 import Dots from "./src/components/Dots";
 import Summary from "./src/components/Summary";
+import Loading from "./src/components/Loading";
 import PickerList from "./src/components/PickerList";
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -24,9 +25,9 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View>
-        <Summary/>
-      </View>
+      
+        <Loading/>
+      
     );
   }
 }

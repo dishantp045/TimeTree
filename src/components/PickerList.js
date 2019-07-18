@@ -19,6 +19,7 @@ class PickerList extends Component<Props> {
     this.onPress = this._onPress.bind(this);
     this.setTaxon = this.setTaxon.bind(this);
     this.state = {
+      incorrectTaxon: "",
       newTaxon: "",
       correctTaxon: "",
       dataSource: []
@@ -42,6 +43,7 @@ class PickerList extends Component<Props> {
     } else if (this.props.response.articles.common_name_a == null) {
       // if a could not be resolved
       this.setState({
+        incorrectTaxon: this.props.response.articles.taxon_a,
         correctTaxon: this.props.response.articles.common_name_b,
         newTaxon: this.props.response.articles.taxon_a,
         dataSource: updateTaxonA
@@ -51,6 +53,7 @@ class PickerList extends Component<Props> {
     } else if (this.props.response.articles.common_name_b == null) {
       // if b could not be resolved
       this.setState({
+        incorrectTaxon: this.props.response.articles.taxon_b,
         correctTaxon: this.props.response.articles.common_name_a,
         newTaxon: this.props.response.articles.taxon_b,
         dataSource: updateTaxonB
@@ -71,15 +74,6 @@ class PickerList extends Component<Props> {
   _onPress = newName => {
     this.setState({ newTaxon: newName }, this.updateResults);
    // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
-    let url = V.sprintf(
-      "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
-      this.state.newTaxon,
-      this.state.correctTaxon
-    );
-    const { fetchData } = this.props;
-    fetchData(url);
-    console.log("should have fetched");
-    
   };
 
   componentDidMount = () => {
@@ -91,16 +85,16 @@ class PickerList extends Component<Props> {
       <View style = {{backgroundColor: "thistle"}}>
         <Header
           centerComponent={{
-            text: "By " + this.state.newTaxon + ", did you mean...",
-            style: { color: "white", fontSize: 20, textAlign: "center" }
+            text: "By " + this.state.incorrectTaxon + ", did you mean...",
+            style: { color: "black", fontSize: 20, textAlign: "center", fontWeight: "bold" }
           }}
-          backgroundColor="black"
+          backgroundColor="dimgrey"
         />
         <FlatList
           data = {this.state.dataSource}
-          renderItem = {({item}) => <PickerBox title = {item.c_syn_name} onPress = {() => this._onPress(item.c_syn_name)} />}
+          renderItem = {({item}) => <PickerBox title = {item.c_syn_name} subTitle = {item.c_node_name_scientific} group = {item.group} onPress = {() => this._onPress(item.c_syn_name)} />}
           keyExtractor = {(item, index)=> item.c_syn_name}
-          backgroundColor = "thistle"
+          backgroundColor = "dimgrey"
           
         />
       </View>
