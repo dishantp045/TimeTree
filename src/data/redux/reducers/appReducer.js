@@ -1,14 +1,17 @@
 import {
   FETCHING_SUCCESS,
   FETCHING_REQUEST,
-  FETCHING_FAILURE
+  FETCHING_FAILURE,
+  FETCHING_STATUS
 } from "../actions/types";
 import * as data from "./../../../../pickerdata.json"; // for debugging issues
 import * as sample from "../../../../sampledata.json";
+import { combineReducers } from "redux";
+
 const initialState = {
   isFetching: false,
   errorMessage: "",
-  articles: sample
+  articles: null
 };
 
 const appReducer = (state = initialState, action) => {
@@ -27,4 +30,15 @@ const appReducer = (state = initialState, action) => {
   }
 };
 
-export default appReducer;
+function fetchingStatusReducer(state = {}, action) {
+  switch (action.type) {
+    case FETCHING_STATUS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  fetchingStatus: fetchingStatusReducer
+});

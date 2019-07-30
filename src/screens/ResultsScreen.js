@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {View, Text, StyleSheet} from "react-native";
+import React, { Component } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import {
   fetchingSuccess,
@@ -8,11 +8,19 @@ import {
   fetchData
 } from "../data/redux/actions/appActions.js";
 import PropTypes from "prop-types";
+import {
+  createAppContainer,
+  createMaterialTopTabNavigator
+} from "react-navigation";
+import Summary from "./../components/Summary";
+import Timeline from "./../components/Timeline";
 
-
-
-class SummaryScreen extends Component<Props>{
-
+class ResultsScreen extends Component<Props> {
+  
 }
 
-export default SummaryScreen;
+
+
+
+
+export default ResultsScreen;

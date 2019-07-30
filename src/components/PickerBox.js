@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.9)",
     elevation: 2,
-    borderWidth: 2
+    borderWidth: 1
   },
   shadow: {
     flex: 1,
@@ -33,12 +33,13 @@ const styles = StyleSheet.create({
     color: "#000"
   },
   container_text: {
-    fontSize: 16,
+    fontSize: 14,
     flex: 1,
     flexDirection: "column",
     marginLeft: 16,
     color: "black",
-    justifyContent: "center"
+    justifyContent: "center",
+    fontFamily: "Gujarati Sangam MN"
   },
   description: {
     fontSize: 11,
@@ -49,20 +50,17 @@ const styles = StyleSheet.create({
 class PickerBox extends Component<props> {
   render() {
     const { title } = this.props;
-    const{subTitle} = this.props;
-    const {group} = this.props;
+    const { subTitle } = this.props;
+    const { group } = this.props;
     return (
-    // <View style={styles.shadow}>
-        <View style={styles.container}>
-          <Text
-            style={styles.container_text}
-            onPress={this.props.onPress}
-          >
-            {title}
-          </Text>
-          <Text style={styles.container_text}>{group}: {subTitle}</Text>
-        </View>
-    // </View>
+      // <View style={styles.shadow}>
+      <View style={styles.container}>
+        <Text style={styles.container_text} onPress={this.props.onPress}>
+          {subTitle}
+        </Text>
+        <Text style = {styles.container_text}>{group}: {title}</Text>
+      </View>
+      // </View>
     );
   }
 }

@@ -32,7 +32,7 @@ var V = require("voca");
 const styles = StyleSheet.create({
   container: {
     // just for main screen if need be
-    backgroundColor: "dimgrey",
+    backgroundColor: "dimgrey"
   },
   image: {
     // for time tree logo
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(100,225,450,0.4)",
     flex: 1,
     position: "absolute",
-    top: 225,
+    top: 270,
     right: 5,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: 'rgba(450,450,450,0.1)'
+    borderColor: "rgba(450,450,450,0.1)"
   },
   boxA: {
-    alignSelf: "center",
+    //  alignSelf: "center",
     // for taxon A
     height: 40,
     width: 200,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   boxB: {
     // for taxon B
-    alignSelf: "center",
+    // alignSelf: "center",
     height: 40,
     width: 200,
     backgroundColor: "#FFF",
@@ -126,6 +126,15 @@ const styles = StyleSheet.create({
 });
 
 class SearchScreen extends Component<Props> {
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: "silver"
+    },
+    headerTitleStyle: {
+      fontSize: 40
+    },
+    title: "TimeTree"
+  };
   constructor(props) {
     super(props);
     this._onPress = this._onPress.bind(this);
@@ -134,6 +143,13 @@ class SearchScreen extends Component<Props> {
       taxonB: "",
       opacity: new Animated.Value(0)
     };
+  }
+  toNavigate = () => {
+    if(this.props.response.articles.hit_records == undefined){
+      this.props.navigation.navigate("Picker");
+    } else {
+      this.props.navigation.navigate("Summary");
+    }
   }
   _onPress = () => {
     if (this.state.taxonA == "" || this.state.taxonB == "") {
@@ -146,8 +162,10 @@ class SearchScreen extends Component<Props> {
       this.state.taxonB
     );
     const { fetchData } = this.props;
-    fetchData(url);
-    console.log("should have fetched");
+    fetchData(url)
+     .then(() => this.toNavigate())
+     .catch(error => console.log("ERROR", error));
+    //while(this.props.response.isFetching == true){}
   };
   handleTaxonA = text => {
     this.setState({ taxonA: text });
@@ -197,7 +215,7 @@ class SearchScreen extends Component<Props> {
                 placeholder="Taxon A..."
                 style={styles.words}
                 onChangeText={this.handleTaxonA}
-                placeholderTextColor = "dimgrey"
+                placeholderTextColor="dimgrey"
               />
             </View>
             <View style={styles.boxB}>
@@ -205,17 +223,17 @@ class SearchScreen extends Component<Props> {
                 placeholder="Taxon B..."
                 style={styles.words}
                 onChangeText={this.handleTaxonB}
-                placeholderTextColor = "dimgrey"
+                placeholderTextColor="dimgrey"
               />
             </View>
-            <TouchableHighlight
-              onPress={this._onPress}
-              hitSlop={{ left: 50, right: 50, top: 50, bottom: 50 }}
-            >
-              <View style={styles.searchButton}>
+            <View style={styles.searchButton}>
+              <TouchableHighlight
+                onPress={this._onPress}
+                hitSlop={{ left: 0, right: 500, top: 100, bottom: 100 }}
+              >
                 <Text style={styles.text}>Search</Text>
-              </View>
-            </TouchableHighlight>
+              </TouchableHighlight>
+            </View>
           </View>
           <View
             style={{
@@ -226,10 +244,10 @@ class SearchScreen extends Component<Props> {
             }}
           >
             <ActivityIndicator
-              animating={this.props.response.isFetching}
+              animating={!this.props.response.isFetching}
               size="large"
-              color="back"
-              style={{ alignItem: "center" }}
+              color="black"
+              style={{ alignItem: "center", position: "relative", bottom: -40 }}
             />
           </View>
           <TouchableHighlight
@@ -276,7 +294,7 @@ SearchScreen.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { response: state };
+  return { response: state.fetchingStatus };
 };
 
 const mapStateToDispatch = dispatch => ({

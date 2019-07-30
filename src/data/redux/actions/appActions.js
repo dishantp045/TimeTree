@@ -1,4 +1,9 @@
-import { FETCHING_SUCCESS, FETCHING_REQUEST, FETCHING_FAILURE } from "./types";
+import {
+  FETCHING_SUCCESS,
+  FETCHING_REQUEST,
+  FETCHING_FAILURE,
+  FETCHING_STATUS
+} from "./types";
 
 // Actions for the redux store
 
@@ -28,17 +33,22 @@ export const fetchingFailure = error => {
 export const fetchData = url => {
   console.log("Should enter async dispatch");
   return async dispatch => {
-    dispatch(fetchingRequest());
-    try{
+    dispatch({ type: FETCHING_STATUS, payload: { isFetching: true } });
+    try {
       let response = await fetch(url);
       let json = await response.json();
-      let dispatchChecker = dispatch(fetchingSuccess(json));
-      console.log("DISPATCH", dispatchChecker);
-      console.log("JSON",json);
+      let dispatchChecker = dispatch({
+        type: FETCHING_STATUS,
+        payload: { isFetching: false, articles: json }
+      });
       console.log(JSON.stringify(json, null, 2));
-    }catch(error){
-      console.log("ERROR",error);
-      dispatch(fetchingFailure(error));
+      //console.log(JSON.stringify(json, null, 2));
+    } catch (error) {
+      console.log("ERROR", error);
+      dispatch({
+        type: FETCHING_STATUS,
+        payload: { isFetching: false, errorMessage: error }
+      });
     }
   };
 };

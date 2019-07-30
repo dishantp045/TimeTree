@@ -91,6 +91,7 @@ class Summary extends Component<Props> {
         Math.round(this.props.response.articles.sum_simple_mol_time * 10) / 10,
       median: Math.round(this.props.response.articles.sum_median_time * 10) / 10
     };
+    // console.log(STORE, this.props.response.articles);
   }
   componentDidMount = () => {
     console.log("STATE", this.state);
@@ -179,7 +180,7 @@ Summary.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { response: state };
+  return { response: state.fetchingStatus };
 };
 
 const mapStateToDispatch = dispatch => ({

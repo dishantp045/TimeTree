@@ -9,11 +9,16 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import SearchScreen from "./src/screens/SearchScreen";
-import LinkedName from "./src/components/LinkedName";
-import Dots from "./src/components/Dots";
-import Summary from "./src/components/Summary";
 import Loading from "./src/components/Loading";
 import PickerList from "./src/components/PickerList";
+import Summary from "./src/components/Summary";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createMaterialTabNavigator,
+  createSwitchNavigator
+} from "react-navigation";
+// import ResultsScreen from "./src/screens/ResultsScreen";
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
   android:
@@ -24,13 +29,31 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return (
-      
-        <Loading/>
-      
-    );
+    return <AppContainer />;
   }
 }
+
+
+const AppStackNavigator = createStackNavigator(
+  {
+    Home: SearchScreen,
+    Picker: PickerList,
+    Summary: Summary
+  },
+  {
+    headerMode: "none",
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "orange"
+      }
+    }
+  }
+);
+
+
+
+const AppContainer = createAppContainer(AppStackNavigator);
 
 const styles = StyleSheet.create({
   container: {

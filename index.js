@@ -12,6 +12,11 @@ import appReducer from "./src/data/redux/reducers/appReducer";
 import thunk from "redux-thunk";
 
 const store = createStore(appReducer, applyMiddleware(thunk));
+
+store.subscribe(()=> {
+  console.log("State Updated", store.getState());
+})
+
 console.log("Store", store.getState());
 const AppContainer = () => (
   <Provider store={store}>

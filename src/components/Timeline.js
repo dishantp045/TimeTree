@@ -30,10 +30,7 @@ class Timeline extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          title="Summary"
-          onPress={() => this.props.navigation.navigate("Summary")}
-        />
+        <Text style={{ color: "white" }}>To Be Implemented</Text>
       </View>
     );
   }

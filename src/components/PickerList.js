@@ -27,20 +27,30 @@ class PickerList extends Component<Props> {
   }
 
   setTaxon = () => {
-    const updateTaxonA = Object.keys(this.props.response.articles.found_taxon_a).map(key =>({
+    const updateTaxonA = Object.keys(
+      this.props.response.articles.found_taxon_a
+    ).map(key => ({
       key,
       ...this.props.response.articles.found_taxon_a[key]
     }));
-    const updateTaxonB = Object.keys(this.props.response.articles.found_taxon_b).map(key =>({
+    const updateTaxonB = Object.keys(
+      this.props.response.articles.found_taxon_b
+    ).map(key => ({
       key,
       ...this.props.response.articles.found_taxon_b[key]
     }));
+    console.log("TAXON A ARRAY",updateTaxonA);
+    console.log("TAXON B ARRAY", updateTaxonB);
     if (
-      this.props.response.articles.common_name_a == null &&
-      this.props.response.articles.common_name_b == null
+      (this.props.response.articles.common_name_a == null &&
+        this.props.response.articles.common_name_b == null) ||
+      (this.props.response.articles.taxon_b == null && this.props.response.articles.taxon_a == null)
     ) {
       Alert.alert("Both entries are not specific enough.");
-    } else if (this.props.response.articles.common_name_a == null) {
+    } else if (
+      this.props.response.articles.common_name_a == null ||
+      this.props.response.articles.taxon_a == null
+    ) {
       // if a could not be resolved
       this.setState({
         incorrectTaxon: this.props.response.articles.taxon_a,
@@ -50,7 +60,10 @@ class PickerList extends Component<Props> {
       });
       console.log("Taxon A unresolved");
       console.log("dataSource", this.state.dataSource);
-    } else if (this.props.response.articles.common_name_b == null) {
+    } else if (
+      this.props.response.articles.common_name_b == null ||
+      this.props.response.articles.taxon_b
+    ) {
       // if b could not be resolved
       this.setState({
         incorrectTaxon: this.props.response.articles.taxon_b,
@@ -70,10 +83,11 @@ class PickerList extends Component<Props> {
     );
     const { fetchData } = this.props;
     fetchData(url);
-  }
+    this.props.navigation.navigate("Loading"); // send to loading screen
+  };
   _onPress = newName => {
     this.setState({ newTaxon: newName }, this.updateResults);
-   // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
+    // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
   };
 
   componentDidMount = () => {
@@ -82,20 +96,31 @@ class PickerList extends Component<Props> {
 
   render() {
     return (
-      <View style = {{backgroundColor: "thistle"}}>
+      <View style={{ backgroundColor: "thistle" }}>
         <Header
           centerComponent={{
             text: "By " + this.state.incorrectTaxon + ", did you mean...",
-            style: { color: "black", fontSize: 20, textAlign: "center", fontWeight: "bold" }
+            style: {
+              color: "black",
+              fontSize: 19,
+              textAlign: "center",
+              fontFamily: "Helvetica-Bold"
+            }
           }}
           backgroundColor="dimgrey"
         />
         <FlatList
-          data = {this.state.dataSource}
-          renderItem = {({item}) => <PickerBox title = {item.c_syn_name} subTitle = {item.c_node_name_scientific} group = {item.group} onPress = {() => this._onPress(item.c_syn_name)} />}
-          keyExtractor = {(item, index)=> item.c_syn_name}
-          backgroundColor = "dimgrey"
-          
+          data={this.state.dataSource}
+          renderItem={({ item }) => (
+            <PickerBox
+              title={item.c_syn_name}
+              subTitle={item.c_node_name_scientific}
+              group={item.group}
+              onPress={() => this._onPress(item.c_syn_name)}
+            />
+          )}
+          keyExtractor={(item, index) => item.c_syn_name}
+          backgroundColor="dimgrey"
         />
       </View>
     );
@@ -108,7 +133,7 @@ PickerList.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { response: state };
+  return { response: state.fetchingStatus };
 };
 
 const mapStateToDispatch = dispatch => ({
