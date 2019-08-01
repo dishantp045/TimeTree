@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, FlatList, StyleSheet, ScrollView, Alert } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  ActivityIndicator
+} from "react-native";
 import { connect } from "react-redux";
 import {
   fetchingSuccess,
@@ -39,12 +46,13 @@ class PickerList extends Component<Props> {
       key,
       ...this.props.response.articles.found_taxon_b[key]
     }));
-    console.log("TAXON A ARRAY",updateTaxonA);
+    console.log("TAXON A ARRAY", updateTaxonA);
     console.log("TAXON B ARRAY", updateTaxonB);
     if (
       (this.props.response.articles.common_name_a == null &&
         this.props.response.articles.common_name_b == null) ||
-      (this.props.response.articles.taxon_b == null && this.props.response.articles.taxon_a == null)
+      (this.props.response.articles.taxon_b == null &&
+        this.props.response.articles.taxon_a == null)
     ) {
       Alert.alert("Both entries are not specific enough.");
     } else if (
@@ -75,6 +83,19 @@ class PickerList extends Component<Props> {
       console.log("dataSource", this.state.dataSource);
     }
   };
+  toNavigate = () => {
+    if (
+      this.props.response.articles.common_name_b == null ||
+      this.props.response.articles.common_name_a == null
+    ) {
+      Alert.alert(
+        "One of the entries cannot be found. Please restart your search."
+      );
+      this.props.navigation.navigate("Home");
+    } else {
+      this.props.navigation.navigate("Summary");
+    }
+  };
   updateResults = () => {
     let url = V.sprintf(
       "http://timetree.igem.temple.edu/api/pairwise/%s/%s",
@@ -82,11 +103,12 @@ class PickerList extends Component<Props> {
       this.state.correctTaxon
     );
     const { fetchData } = this.props;
-    fetchData(url);
-    this.props.navigation.navigate("Loading"); // send to loading screen
+    fetchData(url)
+      .then(() => this.toNavigate())
+      .catch(error => console.log("ERROR", error));
   };
   _onPress = newName => {
-    this.setState({ newTaxon: newName }, this.updateResults);
+    this.setState({ newTaxon: newName }, () => this.updateResults());
     // Alert.alert("New Taxon: "+this.state.newTaxon.toString());
   };
 
@@ -96,7 +118,7 @@ class PickerList extends Component<Props> {
 
   render() {
     return (
-      <View style={{ backgroundColor: "thistle" }}>
+      <View style={{ backgroundColor: "dimgrey" }}>
         <Header
           centerComponent={{
             text: "By " + this.state.incorrectTaxon + ", did you mean...",

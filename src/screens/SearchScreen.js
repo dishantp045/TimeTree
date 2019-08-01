@@ -145,12 +145,13 @@ class SearchScreen extends Component<Props> {
     };
   }
   toNavigate = () => {
-    if(this.props.response.articles.hit_records == undefined){
+    if (this.props.response.articles.common_name_a == null || this.props.response.articles.common_name_b == null) {
       this.props.navigation.navigate("Picker");
     } else {
       this.props.navigation.navigate("Summary");
     }
-  }
+    console.log(this.props.response.articles.common_name_a == null || this.props.response.articles.common_name_b == null);
+  };
   _onPress = () => {
     if (this.state.taxonA == "" || this.state.taxonB == "") {
       Alert.alert("One or more fields have been left empty.");
@@ -163,8 +164,8 @@ class SearchScreen extends Component<Props> {
     );
     const { fetchData } = this.props;
     fetchData(url)
-     .then(() => this.toNavigate())
-     .catch(error => console.log("ERROR", error));
+      .then(() => this.toNavigate())
+      .catch(error => console.log("ERROR", error));
     //while(this.props.response.isFetching == true){}
   };
   handleTaxonA = text => {
@@ -244,8 +245,8 @@ class SearchScreen extends Component<Props> {
             }}
           >
             <ActivityIndicator
-              animating={!this.props.response.isFetching}
-              size="large"
+              animating={this.props.response.isFetching == true}
+              size= "large"
               color="black"
               style={{ alignItem: "center", position: "relative", bottom: -40 }}
             />

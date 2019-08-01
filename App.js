@@ -12,10 +12,11 @@ import SearchScreen from "./src/screens/SearchScreen";
 import Loading from "./src/components/Loading";
 import PickerList from "./src/components/PickerList";
 import Summary from "./src/components/Summary";
+import Timeline from "./src/components/Timeline";
 import {
   createStackNavigator,
   createAppContainer,
-  createMaterialTabNavigator,
+  createMaterialTopTabNavigator,
   createSwitchNavigator
 } from "react-navigation";
 // import ResultsScreen from "./src/screens/ResultsScreen";
@@ -33,12 +34,39 @@ export default class App extends Component<Props> {
   }
 }
 
+const ResultsTabNavigator = createMaterialTopTabNavigator(
+  {
+    Summary: Summary,
+    Timeline: Timeline
+  },
+  {
+    initialRouteName: "Summary",
+    tabBarPosition: "top",
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: "rgba(230,230,250,0.4)",
+      inactiveTintColor: "rgba(230,230,250,0.4)",
+      style: {
+        backgroundColor: "rgba(230,230,250,0.4)",
+        position: "relative"
+      },
+      labelStyle: {
+        textAlign: "center"
+      },
+      indicatorStyle: {
+        borderBottomColor: "#87B56A",
+        borderBottomWidth: 2
+      }
+    }
+  }
+);
 
 const AppStackNavigator = createStackNavigator(
   {
     Home: SearchScreen,
     Picker: PickerList,
-    Summary: Summary
+    Summary: ResultsTabNavigator
   },
   {
     headerMode: "none",
@@ -50,8 +78,6 @@ const AppStackNavigator = createStackNavigator(
     }
   }
 );
-
-
 
 const AppContainer = createAppContainer(AppStackNavigator);
 

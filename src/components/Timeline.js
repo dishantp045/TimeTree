@@ -7,7 +7,7 @@ import {
   Easing,
   StyleSheet,
   Button
-} from "react-navigation";
+} from "react-native";
 import { connect } from "react-redux";
 import {
   fetchingSuccess,
@@ -20,9 +20,7 @@ import PropTypes from "prop-types";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "black",
-    flex: 1,
-    alignItems: "center",
-    justifyContents: "center"
+    flex: 1
   }
 });
 
@@ -30,7 +28,11 @@ class Timeline extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ color: "white" }}>To Be Implemented</Text>
+        <Text
+          style={{ color: "white", textAlign: "center", alignSelf: "center" }}
+        >
+          To Be Implemented
+        </Text>
       </View>
     );
   }

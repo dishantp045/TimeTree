@@ -17,6 +17,7 @@ import {
 import PropTypes from "prop-types";
 import LinkedName from "./LinkedName";
 import ArticleBox from "./ArticleBox";
+import { Header } from "react-native-elements";
 
 const styles = StyleSheet.create({
   container: {
