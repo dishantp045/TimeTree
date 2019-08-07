@@ -13,6 +13,7 @@ import Loading from "./src/components/Loading";
 import PickerList from "./src/components/PickerList";
 import Summary from "./src/components/Summary";
 import Timeline from "./src/components/Timeline";
+import BaseInfo from "./src/components/BaseInfo";
 import {
   createStackNavigator,
   createAppContainer,
@@ -30,7 +31,7 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    return <AppContainer />;
+    return <AppContainer/>;
   }
 }
 
@@ -48,14 +49,16 @@ const ResultsTabNavigator = createMaterialTopTabNavigator(
       activeTintColor: "rgba(230,230,250,0.4)",
       inactiveTintColor: "rgba(230,230,250,0.4)",
       style: {
-        backgroundColor: "rgba(230,230,250,0.4)",
-        position: "relative"
+        backgroundColor: "rgba(255,255,255,1)",
+        position: "relative",
+        top: 45
       },
       labelStyle: {
-        textAlign: "center"
+        textAlign: "center",
+        color: "black"
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
+        borderBottomColor: "rgba(300,300,3, 0.4)",
         borderBottomWidth: 2
       }
     }

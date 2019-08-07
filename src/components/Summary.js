@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     top: 40,
-    left: 25
+    left: 10
   },
   posRight: {
     alignItems: "center",
     position: "absolute",
     top: 40,
-    left: 175
+    left: 170
   },
   text: {
     textAlign: "center",
@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
   },
   image: {
     position: "absolute",
-    top: 200,
+    top: 150,
     height: 375,
     width: 375,
     flex: 1
   },
   topPanel: {
-    backgroundColor: "rgba(0.0,0.0,0.0,0.9)",
+    backgroundColor: "rgba(0,0,0,0.9)",
     height: 150,
     width: 300,
     position: "absolute",
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 4
   },
   midPanel: {
-    backgroundColor: "rgba(0.0,0.0,0.0,0.9)",
+    backgroundColor: "rgba(0,0,0,0.9)",
     height: 100,
     width: 300,
     position: "absolute",

@@ -16,10 +16,10 @@ import {
   fetchData
 } from "../data/redux/actions/appActions.js";
 import PropTypes from "prop-types";
-
+import BaseInfo from "./BaseInfo";
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
+    backgroundColor: "dimgrey",
     flex: 1
   }
 });
@@ -28,11 +28,7 @@ class Timeline extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text
-          style={{ color: "white", textAlign: "center", alignSelf: "center" }}
-        >
-          To Be Implemented
-        </Text>
+        <BaseInfo/>
       </View>
     );
   }

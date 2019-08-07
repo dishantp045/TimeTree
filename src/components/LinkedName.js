@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Linking, Text, StyleSheet, TouchableHighlight, View } from "react-native";
+import {
+  Linking,
+  Text,
+  StyleSheet,
+  TouchableHighlight,
+  View
+} from "react-native";
 
 const styles = StyleSheet.create({
   sciName: {
@@ -18,7 +24,7 @@ class LinkedName extends Component<Props> {
     const { latinName } = this.props;
     return (
       <View>
-        <Text style={styles.sciName} onPress={this.goToUrl}>
+        <Text style={styles.sciName} onPress={this.goToUrl} numberOfLines={1}>
           {latinName}
         </Text>
       </View>
