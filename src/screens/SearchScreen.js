@@ -145,12 +145,19 @@ class SearchScreen extends Component<Props> {
     };
   }
   toNavigate = () => {
-    if (this.props.response.articles.common_name_a == null || this.props.response.articles.common_name_b == null) {
-      this.props.navigation.navigate("Picker");
-    } else {
-      this.props.navigation.navigate("Summary");
+    if (this.props.response.articles.error != undefined) {
+      if (
+        this.props.response.articles.error.type != "NameResolutionException"
+      ) {
+        Alert.alert(this.props.response.articles.error.message);
+      } else {
+        this.props.navigation.navigate("Picker");
+        console.log("moved to picker");
+      }
+      return;
     }
-    console.log(this.props.response.articles.common_name_a == null || this.props.response.articles.common_name_b == null);
+    this.props.navigation.navigate("Summary");
+    console.log("Moved to Summary");
   };
   _onPress = () => {
     if (this.state.taxonA == "" || this.state.taxonB == "") {
@@ -166,7 +173,6 @@ class SearchScreen extends Component<Props> {
     fetchData(url)
       .then(() => this.toNavigate())
       .catch(error => console.log("ERROR", error));
-    //while(this.props.response.isFetching == true){}
   };
   handleTaxonA = text => {
     this.setState({ taxonA: text });
@@ -246,7 +252,7 @@ class SearchScreen extends Component<Props> {
           >
             <ActivityIndicator
               animating={this.props.response.isFetching == true}
-              size= "large"
+              size="large"
               color="black"
               style={{ alignItem: "center", position: "relative", bottom: -40 }}
             />

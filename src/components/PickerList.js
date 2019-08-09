@@ -48,39 +48,38 @@ class PickerList extends Component<Props> {
     }));
     console.log("TAXON A ARRAY", updateTaxonA);
     console.log("TAXON B ARRAY", updateTaxonB);
+    // if else block helps to make which data is needed in the picker list
     if (
+      // incase the data is not specific enough and a whole new search is needed
       (this.props.response.articles.common_name_a == null &&
         this.props.response.articles.common_name_b == null) ||
       (this.props.response.articles.taxon_b == null &&
         this.props.response.articles.taxon_a == null)
     ) {
       Alert.alert("Both entries are not specific enough.");
-    } else if (
-      this.props.response.articles.common_name_a == null ||
-      this.props.response.articles.taxon_a == null
-    ) {
-      // if a could not be resolved
-      this.setState({
-        incorrectTaxon: this.props.response.articles.taxon_a,
-        correctTaxon: this.props.response.articles.common_name_b,
-        newTaxon: this.props.response.articles.taxon_a,
-        dataSource: updateTaxonA
-      });
-      console.log("Taxon A unresolved");
-      console.log("dataSource", this.state.dataSource);
-    } else if (
-      this.props.response.articles.common_name_b == null ||
-      this.props.response.articles.taxon_b
-    ) {
-      // if b could not be resolved
-      this.setState({
-        incorrectTaxon: this.props.response.articles.taxon_b,
-        correctTaxon: this.props.response.articles.common_name_a,
-        newTaxon: this.props.response.articles.taxon_b,
-        dataSource: updateTaxonB
-      });
-      console.log("Taxon B unresolved");
-      console.log("dataSource", this.state.dataSource);
+      this.props.navigation.navigate("Home");
+      return;
+    } else {
+      // checks the length of the arrays and the larger one is used to build the list
+      if (updateTaxonA.length < updateTaxonB.length) {
+        this.setState({
+          incorrectTaxon: this.props.response.articles.taxon_b,
+          correctTaxon: this.props.response.articles.common_name_a,
+          newTaxon: this.props.response.articles.taxon_b, 
+          dataSource: updateTaxonB
+        });
+        console.log("Taxon B unresolved");
+        console.log("dataSource", this.state.dataSource);
+      } else {
+        this.setState({
+          incorrectTaxon: this.props.response.articles.taxon_a,
+          correctTaxon: this.props.response.articles.common_name_b,
+          newTaxon: this.props.response.articles.taxon_a,
+          dataSource: updateTaxonA
+        });
+        console.log("Taxon A unresolved");
+        console.log("dataSource", this.state.dataSource);
+      }
     }
   };
   toNavigate = () => {
