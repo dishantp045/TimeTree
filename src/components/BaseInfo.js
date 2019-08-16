@@ -7,7 +7,8 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  Alert
+  Alert,
+  Linking
 } from "react-native";
 import LinkedName from "./LinkedName";
 import { connect } from "react-redux";
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
 class BaseInfo extends Component<Props> {
   constructor(props) {
     super(props);
+    this.goToUrl = this.goToUrl.bind(this);
     this.state = {
       widthSize: new Animated.Value(0),
       ImageSize: new Animated.Value(0),
@@ -57,6 +59,15 @@ class BaseInfo extends Component<Props> {
         Math.round(this.props.response.articles.sum_simple_mol_time * 10) / 10
     };
   }
+  goToUrl = url => {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        alert("cannot open this link");
+      }
+    });
+  };
   render() {
     return (
       <Animated.View style={styles.container}>
@@ -99,10 +110,20 @@ class BaseInfo extends Component<Props> {
               left: 25
             }}
           >
-            <LinkedName
-              url={this.props.response.articles.link_taxon_a}
-              latinName={this.props.response.articles.scientific_name_a}
-            />
+            <Text
+              style={{
+                color: "black",
+                flex: 1,
+                textAlign: "center",
+                fontSize: 25,
+                top: 10,
+                fontWeight: "bold",
+                color: "blue"
+              }}
+              onPress={() => this.goToUrl(this.props.response.articles.link_taxon_a)}
+            >
+              {this.props.response.articles.scientific_name_a}
+            </Text>
           </View>
           <View
             style={{
@@ -136,10 +157,20 @@ class BaseInfo extends Component<Props> {
               left: 25
             }}
           >
-            <LinkedName
-              url={this.props.response.articles.link_taxon_b}
-              latinName={this.props.response.articles.scientific_name_b}
-            />
+            <Text
+              style={{
+                color: "black",
+                flex: 1,
+                textAlign: "center",
+                fontSize: 25,
+                top: 10,
+                fontWeight: "bold",
+                color: "blue"
+              }}
+              onPress={() => this.goToUrl(this.props.response.articles.link_taxon_b)}
+            >
+              {this.props.response.articles.scientific_name_b}
+            </Text>
           </View>
           <Text
             style={{
@@ -155,7 +186,10 @@ class BaseInfo extends Component<Props> {
             {this.state.TTOL} MYA
           </Text>
           <View style={styles.moreBar}>
-            <TouchableHighlight onPress = {()=>Alert.alert("Button Pressed")} hitSlop={{ left: 0, right: 500, top: 100, bottom: 100 }}>
+            <TouchableHighlight
+              onPress={() => Alert.alert("Button Pressed")}
+              hitSlop={{ left: 0, right: 500, top: 100, bottom: 100 }}
+            >
               <Text style={{ textAlign: "center" }}>More/Less</Text>
             </TouchableHighlight>
           </View>
@@ -182,3 +216,5 @@ export default connect(
   mapStateToProps,
   mapStateToDispatch
 )(BaseInfo);
+
+/* */

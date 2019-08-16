@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
     borderRadius: 25,
-    borderWidth: 4
+    borderWidth: 6
   },
   midPanel: {
     backgroundColor: "rgba(0,0,0,0.9)",
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
     borderRadius: 25,
-    borderWidth: 4
+    borderWidth: 6
   }
 });
 
