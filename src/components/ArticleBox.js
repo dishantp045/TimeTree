@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Linking } from "react-native";
 import LinkedName from "./LinkedName";
+
+const V = require("voca");
 
 const styles = StyleSheet.create({
   box: {
@@ -18,23 +20,46 @@ const styles = StyleSheet.create({
   layout: {
     textAlign: "center",
     color: "#FFF"
-  },
-  input: {
-    color: "#ff8c00"
   }
 });
 
 class ArticleBox extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.goToUrl = this.goToUrl.bind(this);
+  }
+  goToUrl = pubmedID => {
+    let url = V.sprintf(
+      "https://www.ncbi.nlm.nih.gov/pubmed?linkname=pubmed_pubmed&from_uid=%s",
+      pubmedID
+    );
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        alert("cannot open this link");
+      }
+    });
+  };
   render() {
     return (
       <View style={styles.box}>
         <Text style={styles.layout}>
-          Time: <Text styles={styles.input}>{this.props.time}</Text>
+          Time: <Text style={{ color: "orange" }}>{this.props.time}</Text>
         </Text>
         <Text />
         <Text style={styles.layout}>Publication Year: {this.props.year}</Text>
         <Text />
-        <Text style={styles.layout} numberOfLines = {3} >Publication Title: {this.props.title}</Text>
+        <View>
+          <Text
+            style={styles.layout}
+            numberOfLines={3}
+            onPress={() => this.goToUrl(this.props.id)}
+          >
+            Publication Title:{" "}
+            <Text style={{ color: "orange" }}>{this.props.title}</Text>
+          </Text>
+        </View>
         <Text />
         <Text style={styles.layout}>Author: {this.props.author}</Text>
       </View>

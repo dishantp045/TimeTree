@@ -155,6 +155,7 @@ class Summary extends Component<Props> {
                     year={item.year}
                     time={item.time}
                     author={item.author}
+                    id = {item.pubmed_id}
                   />
                 );
               }}
